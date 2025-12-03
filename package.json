@@ -1,5 +1,5 @@
 {
-  "name": "@anthropic/arke-edit-sdk",
+  "name": "@arke-institute/arke-edit-sdk",
   "version": "0.1.0",
   "description": "Modular SDK for intelligent editing of Arke entities with AI-powered regeneration",
   "main": "dist/index.js",
@@ -26,10 +26,6 @@
     "lint": "eslint src/",
     "clean": "rm -rf dist",
     "prepublishOnly": "npm run build"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com",
-    "access": "public"
   },
   "dependencies": {
     "diff": "^5.2.0"

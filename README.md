@@ -12,19 +12,10 @@ Modular SDK for intelligent editing of Arke archive entities with AI-powered reg
 
 ## Installation
 
-### From GitHub Packages
-
-1. Create a `.npmrc` file in your project root:
-
-```
-@anthropic:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
-```
-
-2. Install the package:
+### From GitHub
 
 ```bash
-npm install @anthropic/arke-edit-sdk
+npm install github:Arke-Institute/arke-edit-sdk
 ```
 
 ### From Source
@@ -39,7 +30,7 @@ npm run build
 ## Quick Start
 
 ```typescript
-import { ArkeEditSDK } from '@anthropic/arke-edit-sdk';
+import { ArkeEditSDK } from '@arke-institute/arke-edit-sdk';
 
 const sdk = new ArkeEditSDK({
   ipfsWrapperUrl: 'https://api.arke.institute',
@@ -133,7 +124,7 @@ const status = await session.waitForCompletion({
 ## React Integration
 
 ```typescript
-import { useEditSession } from '@anthropic/arke-edit-sdk/react';
+import { useEditSession } from '@arke-institute/arke-edit-sdk/react';
 
 function EditComponent({ sdk, pi }) {
   const { session, loading, status, startSession, submit } = useEditSession(sdk, pi);
