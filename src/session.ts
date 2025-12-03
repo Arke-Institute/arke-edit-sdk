@@ -479,20 +479,18 @@ export class EditSession {
       if (this.prompts['description']) custom.description = this.prompts['description'];
       if (this.prompts['cheimarros']) custom.cheimarros = this.prompts['cheimarros'];
     } else {
-      // Manual mode: build prompts from diffs and corrections
+      // Manual mode: build prompts from diffs, corrections, and user instructions
       const diffs = this.getDiff();
+      const diffContext = DiffEngine.formatComponentDiffsForPrompt(diffs);
+      const correctionContext = PromptBuilder.buildCorrectionPrompt(this.corrections);
 
-      if (diffs.length > 0 || this.corrections.length > 0) {
-        const diffContext = DiffEngine.formatComponentDiffsForPrompt(diffs);
-        const correctionContext = PromptBuilder.buildCorrectionPrompt(this.corrections);
+      // Combine all context: diffs + corrections + user instructions
+      const basePrompt = [diffContext, correctionContext, this.prompts['general']]
+        .filter(Boolean)
+        .join('\n\n');
 
-        const basePrompt = [diffContext, correctionContext, this.prompts['general']]
-          .filter(Boolean)
-          .join('\n\n');
-
-        if (basePrompt) {
-          custom.general = basePrompt;
-        }
+      if (basePrompt) {
+        custom.general = basePrompt;
       }
 
       // Component-specific prompts

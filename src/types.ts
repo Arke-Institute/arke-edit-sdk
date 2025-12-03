@@ -10,6 +10,13 @@ export interface ArkeClientConfig {
   ipfsWrapperUrl: string;
   reprocessApiUrl: string;
   authToken?: string;
+  /**
+   * Optional function to transform status URLs before fetching.
+   * Use this to proxy status requests through your own server to avoid CORS issues.
+   * @example
+   * statusUrlTransform: (url) => url.replace('https://orchestrator.arke.institute', '/api/orchestrator')
+   */
+  statusUrlTransform?: (url: string) => string;
 }
 
 export type EditMode = 'ai-prompt' | 'manual-with-review' | 'manual-only';

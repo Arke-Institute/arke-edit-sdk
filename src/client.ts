@@ -30,11 +30,13 @@ export class ArkeClient {
   private ipfsWrapperUrl: string;
   private reprocessApiUrl: string;
   private authToken?: string;
+  private statusUrlTransform?: (url: string) => string;
 
   constructor(config: ArkeClientConfig) {
     this.ipfsWrapperUrl = config.ipfsWrapperUrl.replace(/\/$/, '');
     this.reprocessApiUrl = config.reprocessApiUrl.replace(/\/$/, '');
     this.authToken = config.authToken;
+    this.statusUrlTransform = config.statusUrlTransform;
   }
 
   /**
@@ -250,8 +252,11 @@ export class ArkeClient {
       ? { ...DEFAULT_RETRY_OPTIONS, initialDelayMs: 3000 }
       : DEFAULT_RETRY_OPTIONS;
 
+    // Apply URL transform if configured (for CORS proxy)
+    const fetchUrl = this.statusUrlTransform ? this.statusUrlTransform(statusUrl) : statusUrl;
+
     const response = await this.fetchWithRetry(
-      statusUrl,
+      fetchUrl,
       { headers: this.getHeaders() },
       retryOptions
     );
