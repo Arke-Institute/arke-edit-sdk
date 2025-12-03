@@ -381,6 +381,7 @@ export class EditSession {
           options: {
             stop_at_pi: this.scope.stopAtPi,
             custom_prompts: customPrompts,
+            custom_note: note,
           },
         });
 

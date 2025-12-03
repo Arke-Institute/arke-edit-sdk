@@ -133,6 +133,7 @@ export interface ReprocessRequest {
   options?: {
     stop_at_pi?: string;
     custom_prompts?: CustomPrompts;
+    custom_note?: string;  // Custom version note (overrides default phase notes)
   };
 }
 
